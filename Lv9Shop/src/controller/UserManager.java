@@ -2,6 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 
+import models.Cart;
+import models.Item;
 import models.Shop;
 import models.User;
 
@@ -48,6 +50,11 @@ public class UserManager {
 			System.out.println(id + "_Welcome!");
 		} else {
 			System.out.println("[중복된 아이디]");
+		}
+	}
+	public void getUser(String log) {
+		for(User user : this.users) {
+			
 		}
 	}
 }

@@ -104,9 +104,9 @@ public class ShopManager {
 		try {
 			int sel = Integer.parseInt(input);
 			if(sel == 1) {
-				this.um.logIn();
+				this.it.shopping(log); // 카테고리 보여줌 -> 고르기
 			}else if(sel == 2) {
-				this.um.signIn();
+				this.um.signIn(); // 
 			}else if(sel == 0) {
 				Shop.log = null;
 			}
