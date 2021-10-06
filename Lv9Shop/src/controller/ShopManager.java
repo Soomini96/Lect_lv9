@@ -24,6 +24,7 @@ public class ShopManager {
 		}
 	}
 
+	
 	public boolean userMenu() {
 		System.out.println("[[" + this.shopName + "]]");
 		if (this.um.getUsers().size() > 0) {
