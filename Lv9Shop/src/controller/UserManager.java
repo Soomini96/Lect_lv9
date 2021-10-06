@@ -30,7 +30,6 @@ public class UserManager {
 		} else {
 			System.out.println("[중복된 아이디]");
 		}
-		
 	}
 	
 	public void signIn() {
@@ -52,9 +51,20 @@ public class UserManager {
 			System.out.println("[중복된 아이디]");
 		}
 	}
-	public void getUser(String log) {
+	public User getUser(String log) {
 		for(User user : this.users) {
-			
+			if(user.getId().equals(log)) {
+				return user;
+			}
 		}
+		return null;
+	}
+	public void allJang(String log) {
+		for(User user : this.users) {
+			if(user.getId().equals(log)) {
+				user.printCart();
+			}
+		}
+		
 	}
 }
