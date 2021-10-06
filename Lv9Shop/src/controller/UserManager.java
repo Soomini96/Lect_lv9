@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 
 import models.Cart;
-//import models.Item;
 import models.Shop;
 import models.User;
 
@@ -110,7 +109,7 @@ public class UserManager {
 		}
 	}
 
-	public void delCart(String log,Cart cart) {
+	public void delCart(String log, Cart cart) {
 		this.getUser(log).delCart(cart);
 	}
 }

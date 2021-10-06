@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import models.Cart;
 import models.Item;
 import models.Shop;
-import models.User;
 
 public class ItemManager {
 	public static ItemManager instance = new ItemManager();
@@ -44,6 +43,7 @@ public class ItemManager {
 	}
 
 	public void shopping(String log) {
+		um = UserManager.instance;
 		if (this.categorys.size() > 0) {
 			System.out.println("------------------------");
 			int idx = 0;
@@ -62,10 +62,10 @@ public class ItemManager {
 				idx = 0;
 				for (Item item : this.items) {
 					if (item.getCategory().equals(this.categorys.get(selCategory))) {
-						
+
 						item.printItem(idx);
 						idx++;
-						
+
 						temp.add(item);
 					}
 				}
@@ -80,6 +80,10 @@ public class ItemManager {
 						this.carts.add(newCart);
 
 						// 유저 -> 카트 리스트에도 저장!
+//						UserManager haha = new UserManager();
+//						for(User u : haha.getUsers()) {
+//							System.out.println(u.getId());
+//						}
 						this.um.getUser(log).addCart(newCart);
 						System.out.println("[" + temp.get(selItem).getItemName() + "(을)를 담았습니다.]");
 
@@ -111,7 +115,7 @@ public class ItemManager {
 						if (cart.equals(delCart)) {
 							break;
 						}
-						delIdx ++;
+						delIdx++;
 					}
 					this.carts.remove(delIdx);
 					this.um.getUser(log).delCart(delCart);
@@ -137,15 +141,15 @@ public class ItemManager {
 					int CardNum = Shop.sc.nextInt();
 					System.out.println("[결제 완료]");
 
-					while(true) {
+					while (true) {
 						int delIdx = 0;
 						for (Cart cart : this.carts) {
 							if (cart.getId().equals(log)) {
 								break;
 							}
-							delIdx ++;
+							delIdx++;
 						}
-						if(delIdx == this.carts.size()) {
+						if (delIdx == this.carts.size()) {
 							break;
 						}
 						this.carts.remove(delIdx);
@@ -237,14 +241,20 @@ public class ItemManager {
 			// TODO: handle exception
 		}
 	}
+
 	public void delUserCart(String log) {
-		int delIdx = 0;
-		for (Cart c : this.carts) {
-			if (c.getId().equals(log)) {
+		while (true) {
+			int delIdx = 0;
+			for (Cart c : this.carts) {
+				if (c.getId().equals(log)) {
+					break;
+				}
+				delIdx++;
+			}
+			if (delIdx == this.carts.size()) {
 				break;
 			}
-			delIdx++;
+			this.carts.remove(delIdx);
 		}
-		this.carts.remove(delIdx);
 	}
 }
