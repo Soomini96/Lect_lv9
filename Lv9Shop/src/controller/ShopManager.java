@@ -15,7 +15,7 @@ public class ShopManager {
 	public void run() {
 		boolean isRun = true;
 		while(isRun) {
-			if(Shop.log.equals(null)) {
+			if(Shop.log == null) {
 				isRun = userMenu();
 			}else {
 				shoppingMenu(Shop.log);
@@ -133,11 +133,11 @@ public class ShopManager {
 			if(sel == 1) {
 				managerOfItem();
 			}else if(sel == 2) {
-				mangerOfCategory();
+//				mangerOfCategory();
 			}else if(sel == 3) {
-				mangerOfJang();
+//				mangerOfJang();
 			}else if(sel == 4) {
-				mangerOfUser();
+//				mangerOfUser();
 			}else if(sel == 0) {
 				return false;
 			}
