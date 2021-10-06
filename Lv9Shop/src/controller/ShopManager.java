@@ -56,34 +56,6 @@ public class ShopManager {
 		return true;
 	}
 	
-	public boolean managerMode() {
-		System.out.println("------------");
-		System.out.println("[1]아이템 관리");
-		System.out.println("[2]카테고리 관리");
-		System.out.println("[3]장바구니 관리");
-		System.out.println("[4]유저 관리");
-		System.out.println("------------");
-		System.out.println("[0]뒤로가기");
-		System.out.println("------------");
-		System.out.print(": ");
-		String input = Shop.sc.next();
-		
-		try {
-			int sel = Integer.parseInt(input);
-			if(sel == 1) {
-				
-			}else if(sel == 2) {
-			}else if(sel == 3) {
-			}else if(sel == 4) {
-			}else if(sel == 0) {
-				return false;
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return true;
-	}
 	
 	public void shoppingMenu(String log) {
 		System.out.println("------------");
@@ -142,5 +114,41 @@ public class ShopManager {
 			// TODO: handle exception
 		}
 		return true;
+	}
+	
+	public boolean managerMode() {
+		System.out.println("------------");
+		System.out.println("[1]아이템 관리");
+		System.out.println("[2]카테고리 관리");
+		System.out.println("[3]장바구니 관리");
+		System.out.println("[4]유저 관리");
+		System.out.println("------------");
+		System.out.println("[0]뒤로가기");
+		System.out.println("------------");
+		System.out.print(": ");
+		String input = Shop.sc.next();
+		
+		try {
+			int sel = Integer.parseInt(input);
+			if(sel == 1) {
+				managerOfItem();
+			}else if(sel == 2) {
+				mangerOfCategory();
+			}else if(sel == 3) {
+				mangerOfJang();
+			}else if(sel == 4) {
+				mangerOfUser();
+			}else if(sel == 0) {
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return true;
+	}
+	
+	private void managerOfItem() {
+		
 	}
 }
