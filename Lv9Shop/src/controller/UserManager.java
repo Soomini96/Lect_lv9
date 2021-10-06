@@ -9,8 +9,8 @@ import models.User;
 
 public class UserManager {
 	public static UserManager instance = new UserManager();
-	
-	private ItemManager im = ItemManager.instance;
+
+//	private ItemManager im = ItemManager.instance;
 	private ArrayList<User> users = new ArrayList<>();
 
 	public UserManager() {
@@ -100,9 +100,9 @@ public class UserManager {
 			System.out.print("삭제할 사용자 인덱스: ");
 			int idx = Shop.sc.nextInt();
 			String log = this.users.get(idx).getId();
-			
+
 			this.users.remove(idx);
-		
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

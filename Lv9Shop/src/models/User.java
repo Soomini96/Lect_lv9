@@ -49,4 +49,7 @@ public class User {
 		this.carts = null;
 		this.carts = new ArrayList<Cart>();
 	}
+	public void addCart(Cart cart) {
+		this.carts.add(cart);
+	}
 }

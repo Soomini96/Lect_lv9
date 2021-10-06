@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import models.Cart;
 import models.Item;
 import models.Shop;
+import models.User;
 
 public class ItemManager {
 	public static ItemManager instance = new ItemManager();
@@ -61,9 +62,11 @@ public class ItemManager {
 				idx = 0;
 				for (Item item : this.items) {
 					if (item.getCategory().equals(this.categorys.get(selCategory))) {
+						
 						item.printItem(idx);
-						temp.add(item);
 						idx++;
+						
+						temp.add(item);
 					}
 				}
 				System.out.println("------------------------");
@@ -73,12 +76,11 @@ public class ItemManager {
 					int selItem = Shop.sc.nextInt();
 					if (selItem >= 0 && selItem < temp.size()) {
 						Cart newCart = new Cart(temp.get(selItem), log);
-
 						// 카트 리스트에 저장
 						this.carts.add(newCart);
 
 						// 유저 -> 카트 리스트에도 저장!
-						this.um.getUser(log).getCart().add(newCart);
+						this.um.getUser(log).addCart(newCart);
 
 						System.out.println("[" + temp.get(selItem).getItemName() + "(을)를 담았습니다.]");
 					}
@@ -86,7 +88,7 @@ public class ItemManager {
 					System.out.println("[Empty Data]");
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		} else {
 			System.out.println("[Empty Data]");
