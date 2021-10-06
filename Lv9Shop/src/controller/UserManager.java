@@ -3,17 +3,18 @@ package controller;
 import java.util.ArrayList;
 
 import models.Cart;
-import models.Item;
+//import models.Item;
 import models.Shop;
 import models.User;
 
 public class UserManager {
 	public static UserManager instance = new UserManager();
 
-//	private ItemManager im = ItemManager.instance;
+	private ItemManager im = ItemManager.instance;
 	private ArrayList<User> users = new ArrayList<>();
 
 	public UserManager() {
+		System.out.println("hi");
 		User newUser = new User("1", "1");
 		this.users.add(newUser);
 		newUser = new User("2", "2");
@@ -103,18 +104,14 @@ public class UserManager {
 
 			this.users.remove(idx);
 
+			// user에 해당하는 장바구니도 삭제!
+			this.im.delUserCart(log);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	public void delCart(Cart cart) {
-		for (User user : this.users) {
-			for (Cart c : user.getCart()) {
-				if (c.equals(cart)) {
-					user.getCart().remove(cart);
-				}
-			}
-		}
+	public void delCart(String log,Cart cart) {
+		this.getUser(log).delCart(cart);
 	}
 }

@@ -80,9 +80,10 @@ public class ItemManager {
 						this.carts.add(newCart);
 
 						// 유저 -> 카트 리스트에도 저장!
+//						this.um.;
 						this.um.getUser(log).addCart(newCart);
-
 						System.out.println("[" + temp.get(selItem).getItemName() + "(을)를 담았습니다.]");
+
 					}
 				} else {
 					System.out.println("[Empty Data]");
@@ -106,15 +107,18 @@ public class ItemManager {
 				if (sel >= 0 && sel < size) {
 					Cart delCart = this.um.getUser(log).getCart().get(sel);
 
+					int delIdx = 0;
 					for (Cart cart : this.carts) {
 						if (cart.equals(delCart)) {
-							this.carts.remove(cart);
+							break;
 						}
+						delIdx ++;
 					}
+					this.carts.remove(delIdx);
 					this.um.getUser(log).delCart(delCart);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		} else {
 			System.out.println("[Empty Data]");
@@ -134,10 +138,18 @@ public class ItemManager {
 					int CardNum = Shop.sc.nextInt();
 					System.out.println("[결제 완료]");
 
-					for (Cart cart : this.carts) {
-						if (cart.getId().equals(log)) {
-							this.carts.remove(cart);
+					while(true) {
+						int delIdx = 0;
+						for (Cart cart : this.carts) {
+							if (cart.getId().equals(log)) {
+								break;
+							}
+							delIdx ++;
 						}
+						if(delIdx == this.carts.size()) {
+							break;
+						}
+						this.carts.remove(delIdx);
 					}
 
 					this.um.getUser(log).allRemoveJang();
@@ -218,11 +230,22 @@ public class ItemManager {
 			int idx = Shop.sc.nextInt();
 
 			Cart delCart = this.carts.get(idx);
+			String log = delCart.getId();
 
 			this.carts.remove(idx);
-			this.um.delCart(delCart);
+			this.um.delCart(log, delCart);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	public void delUserCart(String log) {
+		int delIdx = 0;
+		for (Cart c : this.carts) {
+			if (c.getId().equals(log)) {
+				break;
+			}
+			delIdx++;
+		}
+		this.carts.remove(delIdx);
 	}
 }

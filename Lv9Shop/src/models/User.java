@@ -38,11 +38,14 @@ public class User {
 	}
 
 	public void delCart(Cart cart) {
+		int delIdx = 0;
 		for (Cart c : this.carts) {
 			if (c.equals(cart)) {
-				this.carts.remove(c);
+				break;
 			}
+			delIdx++;
 		}
+		this.carts.remove(delIdx);
 	}
 
 	public void allRemoveJang() {
