@@ -80,7 +80,6 @@ public class ItemManager {
 						this.carts.add(newCart);
 
 						// 유저 -> 카트 리스트에도 저장!
-//						this.um.;
 						this.um.getUser(log).addCart(newCart);
 						System.out.println("[" + temp.get(selItem).getItemName() + "(을)를 담았습니다.]");
 

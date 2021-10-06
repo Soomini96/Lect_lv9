@@ -14,7 +14,6 @@ public class UserManager {
 	private ArrayList<User> users = new ArrayList<>();
 
 	public UserManager() {
-		System.out.println("hi");
 		User newUser = new User("1", "1");
 		this.users.add(newUser);
 		newUser = new User("2", "2");
