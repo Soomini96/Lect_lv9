@@ -1,14 +1,20 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import controller.FileData;
+import controller.Player;
+import controller.Shop;
+
 class MainGame{
-	static Scanner scan = new Scanner(System.in);
-	static Random ran = new Random();
+	public static Scanner scan = new Scanner(System.in);
+	public static Random ran = new Random();
 	
-	public MainGame() {
-		
-	}
+//	public MainGame() {
+//	}
 	public void run() {
+		Player player = new Player();
+		Shop shop = new Shop();
+		FileData fileData = new FileData();
 		while(true) {
 			System.out.println("==== [HOME] ====");
 			System.out.println("[1]길드 관리");
@@ -24,13 +30,14 @@ class MainGame{
 			try {
 				int sel = Integer.parseInt(input);
 				if(sel == 1) {
-					
+					player.guildMenu();
 				}
 				else if(sel == 2) {
-					
+					// TODO
+//					shop.
 				}
 				else if(sel == 3) {
-					
+					player.inventoryMenu();
 				}
 				else if(sel == 4) {
 					

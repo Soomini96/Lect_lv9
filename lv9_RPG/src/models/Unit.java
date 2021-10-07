@@ -8,8 +8,31 @@ public class Unit {
 	private int att; // 공격력
 	private int def; // 방어력
 	private int exp;
-	private boolean party;
+	private boolean party; // 따로
 	private Item weapon;
 	private Item armor;
 	private Item ring;
+	
+	public Unit(String name, int hp, int att, int def) {
+		this.name = name;
+		this.level = 1;
+		this.hp = hp;
+		this.maxHp = hp;
+		this.att = att;
+		this.def = def;
+		this.exp = 0;
+		this.party = false;
+		this.weapon = null;
+		this.armor = null;
+		this.ring = null;
+	}
+	public void turnOnParty() {
+		this.party = true;
+	}
+	public void turnOffParty() {
+		this.party = false;
+	}
+	public boolean getParty() {
+		return this.party;
+	}
 }
