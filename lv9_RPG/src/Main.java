@@ -33,8 +33,7 @@ class MainGame{
 					player.guildMenu();
 				}
 				else if(sel == 2) {
-					// TODO
-//					shop.
+					shop.shopMenu();
 				}
 				else if(sel == 3) {
 					player.inventoryMenu();

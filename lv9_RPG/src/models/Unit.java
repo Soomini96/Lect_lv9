@@ -35,4 +35,10 @@ public class Unit {
 	public boolean getParty() {
 		return this.party;
 	}
+	public void printUnit(int num) {
+		System.out.printf("[%d번] %s | Lv.%d | HP %d/%d | 공격력 %d | 방어력 %d | 파티 %b\n",num, this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
+	}
+	public void printUnit() {
+		System.out.printf("%s | Lv.%d | HP %d/%d | 공격력 %d | 방어력 %d | 파티 %b\n",this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
+	}
 }
