@@ -6,6 +6,7 @@ import models.Item;
 
 public class Shop {
 	private ArrayList<Item> items = new ArrayList<>();
+
 	public Shop() {
 		Item newItem = new Item("목검", Item.WEAPON, 3, 0, 1000);
 		this.items.add(newItem);
@@ -34,8 +35,9 @@ public class Shop {
 		newItem = new Item("발렌타인 반지", Item.RING, 0, 10, 2000);
 		this.items.add(newItem);
 	}
-	public void shopMenu(){
-		while(true) {
+
+	public void shopMenu() {
+		while (true) {
 			System.out.println("==== [Shop] ====");
 			System.out.println("[1]무기");
 			System.out.println("[2]방어구");
@@ -47,26 +49,26 @@ public class Shop {
 			String input = Player.scan.next();
 			try {
 				int sel = Integer.parseInt(input);
-				if(sel == 0) {
+				if (sel == 0) {
 					break;
 				}
-				while(true) {
+				while (true) {
 					if (sel == Item.WEAPON) {
 						System.out.println("==== [상점|무기] ====");
 					} else if (sel == Item.ARMOR) {
 						System.out.println("==== [상점|방어구] ====");
 					} else if (sel == Item.RING) {
 						System.out.println("==== [상점|반지] ====");
-					} 
-					
+					}
+
 					ArrayList<Item> temp = new ArrayList<Item>();
-					
+
 					int idx = 1;
-					for(int i=0; i<this.items.size(); i++) {
-						if(this.items.get(i).getKind() == sel) {
+					for (int i = 0; i < this.items.size(); i++) {
+						if (this.items.get(i).getKind() == sel) {
 							this.items.get(i).printItem(idx);
 							temp.add(this.items.get(i));
-							idx ++;
+							idx++;
 						}
 					}
 					System.out.println("--------------------");
@@ -75,17 +77,16 @@ public class Shop {
 					System.out.println("[0번]뒤로가기");
 					System.out.println("====================");
 					System.out.print("번호를 골라주세요_");
-					int sel2 = Player.scan.nextInt()-1;
-					if(sel2 == -1) {
+					int sel2 = Player.scan.nextInt() - 1;
+					if (sel2 == -1) {
 						break;
-					}
-					else if(sel2>=0 && sel2<temp.size()){
-						if(Player.money>=temp.get(sel2).getPrice()) {
-							System.out.println("["+temp.get(sel2).getName() + "] 구매 완료.");
-							
+					} else if (sel2 >= 0 && sel2 < temp.size()) {
+						if (Player.money >= temp.get(sel2).getPrice()) {
+							System.out.println("[" + temp.get(sel2).getName() + "] 구매 완료.");
+
 							Player.money -= temp.get(sel2).getPrice();
 							Player.inventory.addInventory(temp.get(sel2));
-						}else {
+						} else {
 							System.out.println("돈이 부족합니다.");
 						}
 					}

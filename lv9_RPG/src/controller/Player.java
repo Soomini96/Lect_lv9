@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Player {
 	public static Scanner scan = new Scanner(System.in);
 	public static Random ran = new Random();
-	
+
 	static int money;
 	public static Guild guild = new Guild();
 	public static Inventory inventory = new Inventory();
@@ -14,9 +14,9 @@ public class Player {
 	public Player() {
 		money = 100000;
 	}
-	
+
 	public void guildMenu() {
-		while(true) {
+		while (true) {
 			System.out.println("==== [Guild] ====");
 			System.out.println("[1]길드 목록");
 			System.out.println("[2]길드원 추가");
@@ -39,8 +39,7 @@ public class Player {
 				} else if (sel == 3) {
 					guild.deleteGuild();
 				} else if (sel == 4) {
-					// TODO: 길드원 정렬
-					
+					guild.sortGuild();
 				} else if (sel == 5) {
 					guild.printAllParty();
 				} else if (sel == 6) {
@@ -52,8 +51,9 @@ public class Player {
 			}
 		}
 	}
+
 	public void inventoryMenu() {
-		while(true) {
+		while (true) {
 			System.out.println("== [Inventory] ==");
 			System.out.println("[1]인벤토리 목록");
 			System.out.println("[2]아이템 착용하기");
@@ -67,12 +67,14 @@ public class Player {
 			try {
 				int sel = Integer.parseInt(input);
 				if (sel == 1) {
+					guild.printAllGuildWithInventory();
 					inventory.printInventory();
 				} else if (sel == 2) {
 					inventory.putOnItem();
 				} else if (sel == 3) {
 					inventory.takeOffItem();
 				} else if (sel == 4) {
+					inventory.selItem();
 				} else if (sel == 0) {
 					break;
 				}

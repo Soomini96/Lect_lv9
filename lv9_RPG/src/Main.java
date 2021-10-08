@@ -5,17 +5,17 @@ import controller.FileData;
 import controller.Player;
 import controller.Shop;
 
-class MainGame{
+class MainGame {
 	public static Scanner scan = new Scanner(System.in);
 	public static Random ran = new Random();
-	
+
 //	public MainGame() {
 //	}
 	public void run() {
 		Player player = new Player();
 		Shop shop = new Shop();
 		FileData fileData = new FileData();
-		while(true) {
+		while (true) {
 			System.out.println("==== [HOME] ====");
 			System.out.println("[1]길드 관리");
 			System.out.println("[2]상점");
@@ -29,22 +29,17 @@ class MainGame{
 			String input = scan.next();
 			try {
 				int sel = Integer.parseInt(input);
-				if(sel == 1) {
+				if (sel == 1) {
 					player.guildMenu();
-				}
-				else if(sel == 2) {
+				} else if (sel == 2) {
 					shop.shopMenu();
-				}
-				else if(sel == 3) {
+				} else if (sel == 3) {
 					player.inventoryMenu();
-				}
-				else if(sel == 4) {
+				} else if (sel == 4) {
+					fileData.save();
+				} else if (sel == 5) {
 					
-				}
-				else if(sel == 5) {
-					
-				}
-				else if(sel == 0) {
+				} else if (sel == 0) {
 					System.out.println("[게임 종료]");
 					break;
 				}
@@ -54,6 +49,7 @@ class MainGame{
 		}
 	}
 }
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -12,7 +12,10 @@ public class Unit {
 	private Item weapon;
 	private Item armor;
 	private Item ring;
-	
+
+	private int alphaAtt;
+	private int alphaDef;
+
 	public Unit(String name, int hp, int att, int def) {
 		this.name = name;
 		this.level = 1;
@@ -26,59 +29,100 @@ public class Unit {
 		this.armor = null;
 		this.ring = null;
 	}
+
 	public void turnOnParty() {
 		this.party = true;
 	}
+
 	public void turnOffParty() {
 		this.party = false;
 	}
+
 	public boolean getParty() {
 		return this.party;
 	}
-	public void printUnit(int num) {
-		System.out.printf("[%d번] %s|Lv.%d|HP %d/%d|공격력 %d|방어력 %d|파티 %b\n",num, this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
+
+	public String getName() {
+		return this.name;
 	}
+
+	public int getAttack() {
+		int attack = this.att;
+		attack += this.alphaAtt;
+		return attack;
+	}
+
+	private void unitInfoString() {
+		System.out.printf("%s|Lv.%d|HP %d/%d|공격력 %d", this.name, this.level, this.hp, this.maxHp, this.att);
+		if (this.alphaAtt > 0) {
+			System.out.printf("(+%d)", this.alphaAtt);
+		} else if (this.alphaAtt < 0) {
+			System.out.printf("(%d)", this.alphaAtt);
+		}
+		System.out.printf("|방어력 %d", this.def);
+		if (this.alphaDef > 0) {
+			System.out.printf("(+%d)", this.alphaDef);
+		}
+		if (this.alphaDef < 0) {
+			System.out.printf("(%d)", this.alphaDef);
+		}
+		System.out.printf("|파티 %b\n", this.party);
+	}
+
+	public void printUnit(int num) {
+		System.out.printf("[%d번]", num);
+		this.unitInfoString();
+	}
+
 	public void printUnitWithInventory(int num) {
-		System.out.printf("[%d번] %s|Lv.%d|HP %d/%d|공격력 %d|방어력 %d|파티 %b\n",num, this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
+		System.out.printf("[%d번]", num);
+		this.unitInfoString();
 		String str = "      무기:";
-		if(this.weapon == null) {
+		if (this.weapon == null) {
 			str += "NULL 방어구:";
-		}else {
+		} else {
 			str += this.weapon.getName() + " 방어구:";
 		}
-		if(this.armor == null) {
+		if (this.armor == null) {
 			str += "NULL 반지:";
-		}else {
+		} else {
 			str += this.armor.getName() + " 반지:";
 		}
-		if(this.ring == null) {
+		if (this.ring == null) {
 			str += "NULL";
-		}else {
+		} else {
 			str += this.ring.getName();
 		}
 		System.out.println(str);
 	}
+
 	public void printUnit() {
-		System.out.printf("%s|Lv.%d|HP %d/%d|공격력 %d|방어력 %d|파티 %b\n",this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
+		this.unitInfoString();
+		if (this.alphaAtt > 0) {
+			System.out.printf("(+%d)", this.alphaAtt);
+		}
+		System.out.printf("|방어력 %d", this.def);
+		if (this.alphaDef > 0) {
+			System.out.printf("(+%d)", this.alphaDef);
+		}
+		System.out.printf("파티 %b\n", this.party);
+//		System.out.printf("%s|Lv.%d|HP %d/%d|공격력 %d|방어력 %d|파티 %b\n",this.name, this.level, this.hp, this.maxHp, this.att, this.def, this.party);
 	}
+
 	public void getItem(Item item) {
 		int itemKind = item.getKind();
-		if(itemKind == Item.WEAPON && this.weapon != null) {
+		if (itemKind == Item.WEAPON && this.weapon != null) {
 			this.weapon.setUse(false);
-		}
-		else if(itemKind == Item.ARMOR && this.armor != null) {
+		} else if (itemKind == Item.ARMOR && this.armor != null) {
 			this.armor.setUse(false);
-		}
-		else if(itemKind == Item.RING && this.ring != null) {
+		} else if (itemKind == Item.RING && this.ring != null) {
 			this.ring.setUse(false);
 		}
-		if(itemKind == Item.WEAPON) {
+		if (itemKind == Item.WEAPON) {
 			this.weapon = item;
-		}
-		else if(itemKind == Item.ARMOR) {
+		} else if (itemKind == Item.ARMOR) {
 			this.armor = item;
-		}
-		else if(itemKind == Item.RING) {
+		} else if (itemKind == Item.RING) {
 			this.ring = item;
 		}
 	}
@@ -93,6 +137,38 @@ public class Unit {
 		} else if (sel == Item.RING) {
 			this.ring.setUse(false);
 			this.ring = null;
+		}
+	}
+
+	public void delAllItem() {
+		if (this.weapon != null) {
+			this.weapon.setUse(false);
+			this.weapon = null;
+		}
+		if (this.armor != null) {
+			this.armor.setUse(false);
+			this.armor = null;
+		}
+		if (this.ring != null) {
+			this.ring.setUse(false);
+			this.ring = null;
+		}
+	}
+
+	public void setAlpha() {
+		this.alphaAtt = 0;
+		this.alphaDef = 0;
+		if (this.weapon != null) {
+			this.alphaAtt += this.weapon.getAttack();
+			this.alphaDef += this.weapon.getDefense();
+		}
+		if (this.armor != null) {
+			this.alphaAtt += this.armor.getAttack();
+			this.alphaDef += this.armor.getDefense();
+		}
+		if (this.ring != null) {
+			this.alphaAtt += this.ring.getAttack();
+			this.alphaDef += this.ring.getDefense();
 		}
 	}
 }
