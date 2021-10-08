@@ -8,7 +8,8 @@ public class Player {
 	public static Random ran = new Random();
 	
 	static int money;
-	private Guild guild = new Guild();
+	public static Guild guild = new Guild();
+	public static Inventory inventory = new Inventory();
 
 	public Player() {
 		money = 100000;
@@ -32,18 +33,18 @@ public class Player {
 			try {
 				int sel = Integer.parseInt(input);
 				if (sel == 1) {
-					this.guild.printAllGuild();
+					guild.printAllGuild();
 				} else if (sel == 2) {
-					this.guild.addGuild();
+					guild.addGuild();
 				} else if (sel == 3) {
-					this.guild.deleteGuild();
+					guild.deleteGuild();
 				} else if (sel == 4) {
-					// TODO: handle exception
+					// TODO: 길드원 정렬
 					
 				} else if (sel == 5) {
-					this.guild.printAllParty();
+					guild.printAllParty();
 				} else if (sel == 6) {
-					this.guild.changeParty();
+					guild.changeParty();
 				} else if (sel == 0) {
 					break;
 				}
@@ -52,6 +53,31 @@ public class Player {
 		}
 	}
 	public void inventoryMenu() {
-		
+		while(true) {
+			System.out.println("== [Inventory] ==");
+			System.out.println("[1]인벤토리 목록");
+			System.out.println("[2]아이템 착용하기");
+			System.out.println("[3]아이템 해제하기");
+			System.out.println("[4]아이템 판매");
+			System.out.println("----------------");
+			System.out.println("[0]뒤로가기");
+			System.out.println("================");
+			System.out.print("메뉴를 입력하세요_ ");
+			String input = scan.next();
+			try {
+				int sel = Integer.parseInt(input);
+				if (sel == 1) {
+					inventory.printInventory();
+				} else if (sel == 2) {
+					inventory.putOnItem();
+				} else if (sel == 3) {
+					inventory.takeOffItem();
+				} else if (sel == 4) {
+				} else if (sel == 0) {
+					break;
+				}
+			} catch (Exception e) {
+			}
+		}
 	}
 }

@@ -30,7 +30,7 @@ public class Guild {
 		name += name2[Player.ran.nextInt(name2.length)];
 		name += name3[Player.ran.nextInt(name3.length)];
 
-		int num = Player.ran.nextInt(name1.length);
+		int num = Player.ran.nextInt(name1.length)+1;
 		int hp = num * 10;
 		int att = num + 5;
 		int def = num + 3;
@@ -59,21 +59,31 @@ public class Guild {
 		System.out.println("Money: " + Player.money + "원");
 		System.out.println("--------------------------");
 	}
+	public void printAllGuildWithInventory() {
+		System.out.println("------- 길드원 리스트 -------");
+		for (int i = 0; i < this.units.size(); i++) {
+			this.units.get(i).printUnitWithInventory(i + 1);
+		}
+		System.out.println("--------------------------");
+		System.out.println("Money: " + Player.money + "원");
+		System.out.println("--------------------------");
+	}
 
 	public void addGuild() {
 		System.out.println("길드원을 추가하시겠습니까? [비용:5000원]");
-		System.out.println("[1]Yes [2]No: ");
+		System.out.print("[1]Yes [2]No: ");
 		String input = Player.scan.next();
 		try {
 			int sel = Integer.parseInt(input);
 			if (sel == 1) {
-				if (Player.money > 5000) {
+				if (Player.money >= 5000) {
 
 					Unit newUnit = this.addUnit();
 					this.units.add(newUnit);
 
 					newUnit.printUnit();
 					System.out.println("길드원을 추가합니다.");
+					Player.money -= 5000;
 				} else {
 					System.out.println("돈이 부족합니다.");
 				}
@@ -111,14 +121,23 @@ public class Guild {
 				this.printAllGuild();
 				System.out.print("길드원의 번호를 입력하세요_");
 				int guildIdx = Player.scan.nextInt()-1;
-				if(guildIdx>=0 && guildIdx<this.units.size()) {
-					this.units.get(sel).turnOffParty();
+				if(guildIdx>=0 && guildIdx<this.units.size() && !this.units.get(guildIdx).getParty()) {
+					this.partyUnit[sel].turnOffParty();
 					this.units.get(guildIdx).turnOnParty();
-					this.changeParty();
+					this.partyUnitCheck();
+				}else {
+					System.out.println("추가할 수 없는 길드원입니다.");
 				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	public Unit getUnit(int idx) {
+		return this.units.get(idx);
+	}
+	public int getUnitSize() {
+		return this.units.size();
+	}
+	
 }
