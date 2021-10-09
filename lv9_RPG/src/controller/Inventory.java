@@ -10,6 +10,13 @@ public class Inventory {
 	public void addInventory(Item item) {
 		this.items.add(item);
 	}
+	public String getInvenData() {
+		String data = "";
+		for(int i=0; i<this.items.size(); i++) {
+			data += this.items.get(i).getName() + "/";
+		}
+		return data.substring(0, data.length()-1);
+	}
 
 	public ArrayList<Item> printInventory() {
 		int idx = 1;

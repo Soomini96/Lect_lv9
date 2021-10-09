@@ -29,6 +29,31 @@ public class Unit {
 		this.armor = null;
 		this.ring = null;
 	}
+	public String getData() {
+		String data = this.name + "/";
+		data += this.level + "/";
+		data += this.maxHp + "/";
+		data += this.att + "/";
+		data += this.def + "/";
+		data += this.exp + "/";
+		data += this.party + "\n";
+		if(this.weapon != null) {
+			data += this.weapon.getName() + "/";
+		}else {
+			data += "null/";
+		}
+		if(this.armor != null) {
+			data += this.armor.getName() + "/";
+		}else {
+			data += "null/";
+		}
+		if(this.ring != null) {
+			data += this.ring.getName();
+		}else {
+			data += "null";
+		}
+		return data;
+	}
 
 	public void turnOnParty() {
 		this.party = true;

@@ -18,7 +18,6 @@ public class Item {
 		this.defense = defense;
 		this.price = price;
 	}
-
 	public int getKind() {
 		return this.kind;
 	}

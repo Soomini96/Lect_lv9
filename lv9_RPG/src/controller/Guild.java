@@ -181,4 +181,12 @@ public class Guild {
 			// TODO: handle exception
 		}
 	}
+	public String writeData() {
+		String data = "";
+		for(int i=0; i<this.units.size(); i++) {
+			data += this.units.get(i).getData() + "\n";
+		}
+		
+		return data;
+	}
 }
