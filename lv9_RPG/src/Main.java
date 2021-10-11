@@ -9,8 +9,6 @@ class MainGame {
 	public static Scanner scan = new Scanner(System.in);
 	public static Random ran = new Random();
 
-//	public MainGame() {
-//	}
 	public void run() {
 		Player player = new Player();
 		Shop shop = new Shop();

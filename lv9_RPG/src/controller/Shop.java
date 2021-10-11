@@ -67,7 +67,10 @@ public class Shop {
 					for (int i = 0; i < this.items.size(); i++) {
 						if (this.items.get(i).getKind() == sel) {
 							this.items.get(i).printItem(idx);
-							temp.add(this.items.get(i));
+							
+							// 주소 그대로 복사하지 말고 다른 아이템 주소를 만들어야 복수 구매 해도 오류안남
+							Item newAdressItem = new Item(this.items.get(i).getName(), this.items.get(i).getKind(), this.items.get(i).getAttack(), this.items.get(i).getDefense(), this.items.get(i).getPrice());
+							temp.add(newAdressItem);
 							idx++;
 						}
 					}
@@ -94,5 +97,14 @@ public class Shop {
 			} catch (Exception e) {
 			}
 		}
+	}
+	public Item findItem(String name) {
+		for(int i=0; i<this.items.size(); i++) {
+			if(this.items.get(i).getName().equals(name)) {
+				Item newItem = new Item(name, this.items.get(i).getKind(), this.items.get(i).getAttack(), this.items.get(i).getDefense(), this.items.get(i).getPrice());
+				return newItem;
+			}
+		}
+		return null;
 	}
 }

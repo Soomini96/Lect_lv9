@@ -6,7 +6,10 @@ import models.Item;
 
 public class Inventory {
 	private ArrayList<Item> items = new ArrayList<Item>();
-
+	
+	public void resetInventory() {
+		this.items = new ArrayList<>();
+	}
 	public void addInventory(Item item) {
 		this.items.add(item);
 	}

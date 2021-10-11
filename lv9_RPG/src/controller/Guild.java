@@ -9,6 +9,17 @@ public class Guild {
 	private ArrayList<Unit> units = new ArrayList<>();
 	private Unit partyUnit[] = new Unit[this.PARTYSIZE];
 
+	public void resetGuild() {
+		this.units = new ArrayList<>();
+		this.partyUnit = new Unit[this.PARTYSIZE];
+	}
+	public void addUnit(String name, int level, int maxHp, int att, int def, int exp, boolean party) {
+		Unit newUnit = new Unit(name, maxHp, att, def);
+		newUnit.setLevel(level);
+		newUnit.setExp(exp);
+		newUnit.setParty(party);
+		this.units.add(newUnit);
+	}
 	public Guild() {
 		// 길드원 추가하기
 		for (int i = 0; i < 10; i++) {
@@ -98,16 +109,32 @@ public class Guild {
 	}
 
 	public void deleteGuild() {
-		System.out.print("삭제할 길드원의 번호를 입력하세요[0.취소]_");
-		String input = Player.scan.next();
-		try {
-			int sel = Integer.parseInt(input) - 1;
-			if (sel >= 0 && sel < this.units.size()) {
-				this.units.get(sel).delAllItem();
-				this.units.remove(sel);
-				this.partyUnitCheck();
+		if(this.units.size() > 4) {
+			System.out.print("삭제할 길드원의 번호를 입력하세요[0.취소]_");
+			String input = Player.scan.next();
+			try {
+				int sel = Integer.parseInt(input) - 1;
+				if (sel >= 0 && sel < this.units.size()) {
+					this.units.get(sel).delAllItem();
+					if(this.units.get(sel).getParty()) { 
+						// 파티원인경우 다른사람으로 랜덤대체
+						while(true) {
+							int idx = Player.ran.nextInt(this.units.size());
+							if(!this.units.get(idx).getParty()) {
+								this.units.get(idx).turnOnParty();
+								break;
+							}
+						}
+						
+					}
+					this.units.remove(sel);
+					this.partyUnitCheck();
+				}
+			} catch (Exception e) {
 			}
-		} catch (Exception e) {
+		}
+		else {
+			System.out.println("최소 길드 사이즈입니다. 삭제 불가능!");
 		}
 	}
 

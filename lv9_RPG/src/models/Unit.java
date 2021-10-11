@@ -15,6 +15,16 @@ public class Unit {
 
 	private int alphaAtt;
 	private int alphaDef;
+	
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	public void setParty(boolean party) {
+		this.party = party;
+	}
 
 	public Unit(String name, int hp, int att, int def) {
 		this.name = name;
