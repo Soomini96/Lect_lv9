@@ -41,4 +41,14 @@ public class Unit {
 	public void setLocation(int location) {
 		this.location = location;
 	}
+	public void fight(Unit target) {
+		int attack = Game.rn.nextInt(this.attack);
+		int defense = Game.rn.nextInt(target.defense);
+		int total = attack - defense;
+		target.setHp(target.getHp() - total);
+		System.out.println("<<" + this.name + "의 공격!!>>");
+		System.out.println(attack + "의 데미지..!!");
+		System.out.println(target.getName() + "가 " + defense + "만큼 방어함");
+		System.out.printf("[%s]의 남은 체력 : %d\n",target.getName(),target.getHp());
+	}
 }
