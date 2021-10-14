@@ -22,7 +22,7 @@ public class Game {
 
 	private void firstSetting() {
 		this.player = new Hero("플레이어", 100, 5, 2, 1);
-		this.zombies.add(new Zombie("일반 좀비", 50, 5, 1, 3));
+		this.zombies.add(new Zombie("일반 좀비", 30, 5, 1, 3));
 		this.zombies.add(new Zombie("쎈 좀비", 55, 15, 1, 6));
 		this.zombies.add(new Zombie("체력 좋은 좀비", 100, 20, 3, 9));
 		this.zombies.add(new Zombie("좀비왕", 120, 25, 5, 12));
@@ -52,7 +52,10 @@ public class Game {
 				break;
 			}
 			if (stair == 12) {
-				System.out.println("생존을 축하합니다!");
+				System.out.println("✙⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼✙");
+				System.out.println("⎸ 당신은 살았습니다  ⎸");
+				System.out.println("⎸ 생존을 축하합니다  ⎸");
+				System.out.println("✙⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼⎼✙");
 				break;
 			}
 		}
