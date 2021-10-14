@@ -25,7 +25,7 @@ public class Game {
 		this.zombies.add(new Zombie("일반 좀비", 30, 5, 1, 3));
 		this.zombies.add(new Zombie("쎈 좀비", 55, 15, 1, 6));
 		this.zombies.add(new Zombie("체력 좋은 좀비", 100, 20, 3, 9));
-		this.zombies.add(new Zombie("좀비왕", 120, 25, 5, 12));
+		this.zombies.add(new ZombieKing("좀비왕", 120, 25, 5, 12));
 	}
 
 	public void run() {
