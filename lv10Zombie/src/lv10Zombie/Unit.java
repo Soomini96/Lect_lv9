@@ -14,7 +14,7 @@ public class Unit {
 		this.defense = defense;
 		this.location = location;
 	}
-	public String getName() {
+	public String getName() { 
 		return this.name;
 	}
 	public int getHp() {
