@@ -1,4 +1,4 @@
-package lv10Zombie;
+package lv10_MyZombie;
 
 public class Hero extends Unit {
 	private int healPotion = 3;

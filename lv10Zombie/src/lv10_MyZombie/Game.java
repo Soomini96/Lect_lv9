@@ -1,4 +1,4 @@
-package lv10Zombie;
+package lv10_MyZombie;
 
 import java.util.ArrayList;
 import java.util.Random;
