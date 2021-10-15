@@ -1,10 +1,18 @@
 package lv10_MyZombie;
 
+// 상속O,추상화O,인터페이스O,마크인터페이스
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
-public class Game {
+interface GameTool{
+	void firstSetting();
+	void run();
+	int printMenu();
+}
+//interface ZombieCheck {
+//}
+public class Game implements GameTool {
 	private static Game instance = new Game();
 
 	private Game() {
@@ -19,8 +27,8 @@ public class Game {
 
 	private Hero player;
 	private ArrayList<Unit> zombies = new ArrayList<>();
-
-	private void firstSetting() {
+	
+	public void firstSetting() {
 		this.player = new Hero("플레이어", 100, 5, 2, 1);
 		this.zombies.add(new Zombie("일반 좀비", 30, 5, 1, 3));
 		this.zombies.add(new Zombie("쎈 좀비", 55, 15, 1, 6));
@@ -130,7 +138,6 @@ public class Game {
 					this.player.drinking();
 					zombie.fight(player);
 				}
-
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

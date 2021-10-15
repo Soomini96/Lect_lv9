@@ -1,6 +1,6 @@
 package lv10_MyZombie;
 
-public class Unit {
+abstract public class Unit {
 	private String name;
 	private int hp;
 	private int attack;
@@ -64,4 +64,6 @@ public class Unit {
 		System.out.println(target.getName() + "가 " + defense + "만큼 방어함");
 		System.out.printf("[%s]의 남은 체력 : %d\n", target.getName(), target.getHp());
 	}
+	
+	abstract void birth();
 }

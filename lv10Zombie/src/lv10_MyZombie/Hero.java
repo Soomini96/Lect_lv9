@@ -1,11 +1,14 @@
 package lv10_MyZombie;
 
 public class Hero extends Unit {
+	private String name;
 	private int healPotion = 3;
 	private final int heal = 100;
 
 	public Hero(String name, int hp, int attack, int defense, int location) {
 		super(name, hp, attack, defense, location);
+		this.name = name;
+		this.birth();
 	}
 
 	public int getHealPotion() {
@@ -25,5 +28,9 @@ public class Hero extends Unit {
 		} else {
 			System.out.println("포션이 없습니다 ㅠㅠ");
 		}
+	}
+	@Override
+	void birth() {
+		System.out.printf("%s의 탄생!!\n", this.name);
 	}
 }
