@@ -1,7 +1,7 @@
 package lv10_MyZombie;
 
-interface ZombieCheck {
-}
+//interface ZombieCheck {
+//}
 
 public class ZombieKing extends Unit implements ZombieCheck {
 	private String name;
