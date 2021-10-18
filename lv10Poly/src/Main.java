@@ -5,7 +5,7 @@ public class Main {
 		boolean run = true;
 		while(true) {
 			run = gameManager.changeStage();
-			if(run = false) {
+			if(!run) {
 				break;
 			}
 		}

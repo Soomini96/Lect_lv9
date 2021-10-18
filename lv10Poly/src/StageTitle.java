@@ -1,6 +1,9 @@
 
 public class StageTitle extends Stage {
 	@Override
+	public void intit() {
+	}
+	@Override
 	public boolean update() {
 		System.out.println("<<< TEXT RPG >>>");
 		System.out.print("[시작]을 입력하세요: ");
@@ -10,8 +13,5 @@ public class StageTitle extends Stage {
 			return false;
 		}
 		return true;
-	}
-	@Override
-	public void intit() {
 	}
 }
