@@ -1,10 +1,15 @@
+package controller;
 import java.util.Random;
 import java.util.Vector;
 
 public class StageBattle extends Stage {
-	UnitManager UnitManager = new UnitManager();
+	UnitManager unitManager = new UnitManager();
+	
+//	Vector<Player> playerList = new Vector<>();
+//	Vector<Unit> monList = new Vector<>();
 	Vector<Player> playerList = null;
 	Vector<Unit> monList = null;
+	
 	private Random rn = new Random();
 	
 	int monsterCount = 0;
@@ -12,8 +17,19 @@ public class StageBattle extends Stage {
 	
 	@Override
 	public void init() {
+		this.unitManager.mon_list.clear();
+		this.unitManager.monster_rnSet(4);
 		
-
+//		this.playerList.clear();
+//		this.monList.clear();
+		this.playerList = null;
+		this.monList = null;
+		
+		this.playerList = this.unitManager.player_list;
+		this.monList = this.unitManager.mon_list;
+		
+		this.monsterCount = this.monList.size();
+		this.playerCount = this.playerList.size();
 	}
 
 	@Override
@@ -67,7 +83,7 @@ public class StageBattle extends Stage {
 		if(p.hp<0) {
 			return;
 		}
-		System.out.println("[%s] [1.공격][2.스킬]");
+		System.out.printf("<%s> [1.공격][2.스킬]\n",p.name);
 		int sel = GameManager.scan.nextInt();
 		if(sel == 1) {
 			while(true) {
@@ -95,7 +111,20 @@ public class StageBattle extends Stage {
 		}
 	}
 	private void check_live() {
+		int num = 0;
+		for(int i=0; i<this.playerList.size(); i++) {
+			if(this.playerList.get(i).hp>0) {
+				num ++;
+			}
+		}
+		this.playerCount = num;
 		
-		
+		num = 0;
+		for(int i=0; i<this.monList.size(); i++) {
+			if(this.monList.get(i).hp>0) {
+				num ++;
+			}
+		}
+		this.monsterCount = num;
 	}
 }

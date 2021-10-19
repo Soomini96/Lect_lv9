@@ -1,13 +1,21 @@
+package controller;
 
-public class Unit {
+public abstract class Unit {
 	int hp;
 	int maxHp;
 	int power;
 	String name;
 	String state = "노말";
+	public Unit() {}
 	public Unit(String name, int maxHp, int power) {
 		this.name = name;
 		this.maxHp = maxHp;
+		this.hp = maxHp;
+		this.power = power;
+	}
+	public void init(int max, int power) {
+		this.maxHp = max;
+		this.hp = max;
 		this.power = power;
 	}
 	void printData() {
@@ -21,4 +29,9 @@ public class Unit {
 			target.hp = 0;
 		}
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public abstract void skill();
 }

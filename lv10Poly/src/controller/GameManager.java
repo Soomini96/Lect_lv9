@@ -1,3 +1,4 @@
+package controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -7,13 +8,12 @@ public class GameManager {
 	Random ran = new Random();
 	static Scanner scan = new Scanner(System.in);
 	static String nextStage = "";
-//	String nextStage = "";
 	String curStage = "";
 	Map<String, Stage> stageList = new HashMap<>();
 	
 	public GameManager() {
 		stageList.put("TITLE", new StageTitle());
-//		stageList.put("BATTLE", new StageBattle());
+		stageList.put("BATTLE", new StageBattle());
 		stageList.put("LOBBY", new StageLobby());
 		
 		nextStage = "TITLE";
@@ -30,9 +30,8 @@ public class GameManager {
 		else {
 			this.curStage = nextStage;
 			
-			Stage stage = this.stageList.get(this.curStage); // 키값이 Curstage
+			Stage stage = this.stageList.get(this.curStage); // 키값이 CurStage
 			stage.init(); // 각 단계 초기 세팅
-			
 			boolean run = true;
 			while(run) { // 각 단계의 반복
 				run = stage.update();

@@ -1,3 +1,4 @@
+package controller;
 
 public class StageLobby extends Stage {
 	@Override

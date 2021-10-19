@@ -1,3 +1,4 @@
+package controller;
 
 public class StageTitle extends Stage {
 	@Override
