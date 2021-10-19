@@ -1,7 +1,7 @@
 
 public class StageTitle extends Stage {
 	@Override
-	public void intit() {
+	public void init() {
 	}
 	@Override
 	public boolean update() {

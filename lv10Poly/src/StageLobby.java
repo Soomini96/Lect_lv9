@@ -1,7 +1,7 @@
 
 public class StageLobby extends Stage {
 	@Override
-	public void intit() {
+	public void init() {
 	}
 
 	@Override

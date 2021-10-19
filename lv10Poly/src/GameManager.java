@@ -30,8 +30,8 @@ public class GameManager {
 		else {
 			this.curStage = nextStage;
 			
-			Stage stage = this.stageList.get(this.curStage);
-			stage.intit(); // 각 단계 초기 세팅
+			Stage stage = this.stageList.get(this.curStage); // 키값이 Curstage
+			stage.init(); // 각 단계 초기 세팅
 			
 			boolean run = true;
 			while(run) { // 각 단계의 반복
