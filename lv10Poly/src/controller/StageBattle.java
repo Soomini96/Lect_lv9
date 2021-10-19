@@ -2,6 +2,8 @@ package controller;
 import java.util.Random;
 import java.util.Vector;
 
+import units.UnitBat;
+
 public class StageBattle extends Stage {
 	UnitManager unitManager = new UnitManager();
 	
@@ -21,7 +23,7 @@ public class StageBattle extends Stage {
 		this.unitManager.monster_rnSet(4);
 		
 //		this.playerList.clear();
-//		this.monList.clear();
+//		this.monList.clear(); // X
 		this.playerList = null;
 		this.monList = null;
 		
@@ -83,7 +85,12 @@ public class StageBattle extends Stage {
 		if(p.hp<0) {
 			return;
 		}
-		System.out.printf("<%s> [1.공격][2.스킬]\n",p.name);
+		else if(p.getFrozen()) {
+			System.out.println(p.getName() + "은 이번 턴을 쉬어야 한다.");
+			p.setFrozen(false);
+			return;
+		}
+		System.out.printf("<%s> [1.공격][2.스킬]\n",p.getName());
 		int sel = GameManager.scan.nextInt();
 		if(sel == 1) {
 			while(true) {
@@ -94,7 +101,13 @@ public class StageBattle extends Stage {
 				}
 			}
 		}else if(sel == 2) {
-			// TODO : 어택!
+			while(true) {
+				int rnIdx = rn.nextInt(this.monList.size());
+				if(this.monList.get(rnIdx).hp>0) {
+					p.skill(this.monList.get(rnIdx));
+					break;
+				}
+			}
 		}
 	}
 	private void monster_attack(int idx) {
@@ -102,10 +115,32 @@ public class StageBattle extends Stage {
 		if(m.hp<=0) {
 			return;
 		}
+		else if(m.getFrozen()) {
+			System.out.println(m.getName() + "은 이번 턴을 쉬어야 한다.");
+			m.setFrozen(false);
+			return;
+		}
 		while(true) {
 			int rnIdx = rn.nextInt(this.playerList.size());
 			if(this.playerList.get(rnIdx).hp > 0) {
-				m.attack(this.playerList.get(rnIdx));
+				int skillGo = rn.nextInt(1);
+				if (skillGo == 0) {
+					try {
+						if(m instanceof UnitBat) {
+							UnitBat temp = (UnitBat) m;
+							temp.skill(this.playerList.get(rnIdx));
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					// 어떻게 하면 UnitBat 안으로 들어갈까?
+//					if(m.getName().equals("박쥐")) {
+//						
+//					}
+					
+				} else {
+					m.attack(this.playerList.get(rnIdx));
+				}
 				break;
 			}
 		}

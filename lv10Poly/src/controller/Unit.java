@@ -6,6 +6,8 @@ public abstract class Unit {
 	int power;
 	String name;
 	String state = "노말";
+	private boolean frozen = false;
+	
 	public Unit() {}
 	public Unit(String name, int maxHp, int power) {
 		this.name = name;
@@ -32,6 +34,16 @@ public abstract class Unit {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getName() {
+		return this.name;
+	}
 	
-	public abstract void skill();
+	public boolean getFrozen() {
+		return this.frozen;
+	}
+	public void setFrozen(boolean frozen) {
+		this.frozen = frozen;
+	}
+	
+	public abstract void skill(Unit target);
 }
