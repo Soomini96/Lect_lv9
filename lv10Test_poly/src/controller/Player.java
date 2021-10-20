@@ -17,4 +17,32 @@ public abstract class Player {
 	}
 	public abstract void attack(Monster monster);
 	public abstract void skill(Monster monster);
+	
+	public void printPlayer() {
+		System.out.printf("[%s] [%d/%d] [%d]\n",this.name, this.hp, this.maxHp, this.power);
+	}
+	public String getName() {
+		return this.name;
+	}
+	public int getHp() {
+		return this.hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getStop() {
+		return this.stop;
+	}
+	public void setStop(int stop) {
+		this.stop = stop;
+	}
+	public int getGauge() {
+		return this.skillGauge;
+	}
+	public void setGauge(int gauge) {
+		this.skillGauge = gauge;
+	}
+	public int getPower() {
+		return this.power;
+	}
 }
