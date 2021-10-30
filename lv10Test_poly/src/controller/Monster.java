@@ -15,7 +15,7 @@ public abstract class Monster {
 	public abstract void attack(Player player);
 	public abstract void skill(Player player);
 	
-	public void printPlayer() {
+	public void printMonster() {
 		System.out.printf("[%s] [%d/%d] [%d]\n",this.name, this.hp, this.maxHp, this.power);
 	}
 	

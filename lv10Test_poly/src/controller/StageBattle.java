@@ -79,7 +79,7 @@ public class StageBattle implements Stage {
 		}
 		System.out.println("*MONSTERS*");
 		for(int i=0; i<this.monsters.size(); i++) {
-			
+			this.monsters.get(i).printMonster();
 		}
 	}
 	
