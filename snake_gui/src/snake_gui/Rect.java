@@ -6,6 +6,12 @@ public class Rect {
 	private int x, y, width, height;
 	private Color c;
 	
+	public Rect(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 	
 	// 생성자
 	public int getX() {
@@ -23,19 +29,13 @@ public class Rect {
 	public int getWidth() {
 		return width;
 	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
 	public int getHeight() {
 		return height;
 	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	public Color getC() {
+	public Color getColor() {
 		return c;
 	}
-	public void setC(Color c) {
+	public void setColor(Color c) {
 		this.c = c;
 	}
 	
