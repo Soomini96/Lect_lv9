@@ -22,7 +22,7 @@ public class Game extends JFrame {
 	public Game() {
 		super("Snake Game");
 		setLayout(null);
-		setBounds(50, 50, 700, 700);
+		setBounds(100, 50, 700, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		add(this.panel);
