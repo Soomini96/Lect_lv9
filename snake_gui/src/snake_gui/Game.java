@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -55,6 +56,10 @@ class SnakePanel extends MyUtil {
 		setMap();
 		setSnake();
 		setButton();
+
+		// key Listener
+		setFocusable(true);
+		addKeyListener(this);
 	}
 
 	private void setTitle() {
@@ -87,7 +92,7 @@ class SnakePanel extends MyUtil {
 
 	}
 
-	private void setSnake() {
+	private void setSnake() { // 초기 설정
 		for (int i = 0; i < this.SIZE; i++) {
 			for (int j = 0; j < this.SIZE; j++) {
 				this.map[i][j].setColor(Color.black);
@@ -96,10 +101,13 @@ class SnakePanel extends MyUtil {
 
 		this.xx = 5;
 		this.yy = 5;
+
 		int xx = this.xx;
 		int yy = this.yy;
+
 		this.size = 4;
 		this.snake = new Rect[this.size];
+		
 		for (int i = 0; i < this.size; i++) {
 			this.snake[i] = this.map[yy][xx];
 			xx--;
@@ -163,68 +171,79 @@ class SnakePanel extends MyUtil {
 //			System.out.println(i + "번째 주소: " + this.snake[i]);
 //			System.out.println(this.snake[i].getColor());
 //		}
+		System.out.println("버튼");
 
 		JButton target = (JButton) e.getSource();
 		if (target == this.resetButton) {
 			System.out.println("!!RESET!!");
 			this.setSnake();
-		}
-
-		else {
-			int x = this.xx;
-			int y = this.yy;
-
-//			System.out.printf("(xx, yy): (%d, %d)\n", this.xx, this.yy);
-
-			Rect[] temp = this.snake;
-
+		} else {
+			int go = 0; // 1 2 3 4
 			if (target == this.controller[0]) { // 좌
-				x--;
+				go = 1;
 			} else if (target == this.controller[1]) { // 하
-				y++;
+				go = 2;
 			} else if (target == this.controller[2]) { // 우
-				x++;
+				go = 3;
 			} else if (target == this.controller[3]) { // 상
-				y--;
+				go = 4;
 			}
-
-			if (!this.die && x >= 0 && x < this.SIZE && y >= 0 && y < this.SIZE) {
-				this.xx = x;
-				this.yy = y;
-
-				temp[temp.length - 1].setColor(Color.black);
-
-				Rect nextRect = this.map[this.yy][this.xx];
-				// 자기 몸 물면 die && 꼬리는 괜찮음
-				if (nextRect.getColor() != Color.black && nextRect.getColor() != ITEM
-						&& nextRect != temp[temp.length - 1]) {
-					this.die = true;
-				}
-
-				// TODO: 아이템?
-				if (nextRect.getColor() == ITEM) {
-					this.size++;
-					temp[temp.length - 1].setColor(body);
-				}
-
-				this.snake = new Rect[this.size];
-
-				for (int i = 0; i < this.size; i++) {
-					if (i == 0) {
-						this.snake[0] = nextRect;
-					} else {
-						this.snake[i] = temp[i - 1];
-					}
-					this.snake[i].setColor(body);
-				}
-				this.snake[0].setColor(head);
-			} else {
-				this.die = true;
-//				JOptionPane.showMessageDialog(null, String.format("You Die!"));
-				new AlertFrame(String.format("You Die!"));
-			}
+			moveSnake(go);
 		}
-		randomItem();
+	}
+
+	private void moveSnake(int go) {
+		int x = this.xx;
+		int y = this.yy;
+
+		Rect[] temp = this.snake;
+
+		if (go == 1) { // 좌
+			x--;
+		} else if (go == 2) { // 하
+			y++;
+		} else if (go == 3) { // 우
+			x++;
+		} else if (go == 4) { // 상
+			y--;
+		}
+
+		if (!this.die && x >= 0 && x < this.SIZE && y >= 0 && y < this.SIZE) {
+			this.xx = x;
+			this.yy = y;
+
+			temp[temp.length - 1].setColor(Color.black);
+
+			Rect nextRect = this.map[this.yy][this.xx];
+			// 자기 몸 물면 die && 꼬리는 괜찮음
+			if (nextRect.getColor() != Color.black && nextRect.getColor() != ITEM
+					&& nextRect != temp[temp.length - 1]) {
+				this.die = true;
+			}
+
+			// TODO: 아이템?
+			if (nextRect.getColor() == ITEM) {
+				this.size++;
+				temp[temp.length - 1].setColor(body);
+			}
+
+			this.snake = new Rect[this.size];
+
+			for (int i = 0; i < this.size; i++) {
+				if (i == 0) {
+					this.snake[0] = nextRect;
+				} else {
+					this.snake[i] = temp[i - 1];
+				}
+				this.snake[i].setColor(body);
+			}
+			this.snake[0].setColor(head);
+			randomItem();
+		} else {
+			this.die = true;
+//				JOptionPane.showMessageDialog(null, String.format("You Die!"));
+			new AlertFrame(String.format("You Die!"));
+		}
 	}
 
 	private void randomItem() {
@@ -248,6 +267,37 @@ class SnakePanel extends MyUtil {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("keyPressed");
+
+		int go = 0; // 1 2 3 4
+		if (e.getKeyCode() == e.VK_LEFT || e.getKeyCode() == e.VK_A) { // 좌
+			go = 1;
+		} else if (e.getKeyCode() == e.VK_DOWN || e.getKeyCode() == e.VK_S) { // 하
+			go = 2;
+		} else if (e.getKeyCode() == e.VK_RIGHT || e.getKeyCode() == e.VK_D) { // 우
+			go = 3;
+		} else if (e.getKeyCode() == e.VK_UP || e.getKeyCode() == e.VK_W) { // 상
+			go = 4;
+		}
+		moveSnake(go);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("keyTyped");
+//		super.keyTyped(e);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("keyReleased");
+//		super.keyReleased(e);
 	}
 }
 
