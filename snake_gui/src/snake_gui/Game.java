@@ -50,7 +50,7 @@ class SnakePanel extends MyUtil {
 	public SnakePanel() {
 		setLayout(null);
 		setBounds(0, 0, 800, 700);
-		setBackground(Color.white);
+//		setBackground(Color.white);
 
 		setTitle();
 		setMap();
@@ -221,7 +221,7 @@ class SnakePanel extends MyUtil {
 				this.die = true;
 			}
 
-			// TODO: 아이템?
+			// 아이템
 			if (nextRect.getColor() == ITEM) {
 				this.size++;
 				temp[temp.length - 1].setColor(body);
@@ -283,21 +283,9 @@ class SnakePanel extends MyUtil {
 		} else if (e.getKeyCode() == e.VK_UP || e.getKeyCode() == e.VK_W) { // 상
 			go = 4;
 		}
-		moveSnake(go);
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("keyTyped");
-//		super.keyTyped(e);
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("keyReleased");
-//		super.keyReleased(e);
+		if(go != 0) {
+			moveSnake(go);
+		}
 	}
 }
 
