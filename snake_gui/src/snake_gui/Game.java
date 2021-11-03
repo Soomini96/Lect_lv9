@@ -107,7 +107,7 @@ class SnakePanel extends MyUtil {
 
 		this.size = 4;
 		this.snake = new Rect[this.size];
-		
+
 		for (int i = 0; i < this.size; i++) {
 			this.snake[i] = this.map[yy][xx];
 			xx--;
@@ -283,7 +283,7 @@ class SnakePanel extends MyUtil {
 		} else if (e.getKeyCode() == e.VK_UP || e.getKeyCode() == e.VK_W) { // 상
 			go = 4;
 		}
-		if(go != 0) {
+		if (go != 0) {
 			moveSnake(go);
 		}
 	}
