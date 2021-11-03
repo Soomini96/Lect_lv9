@@ -44,45 +44,41 @@ class Rect {
 class ExPanel extends MyUtil {
 
 	private Rect rect = new Rect(100, 100, 100, 100);
-	private boolean ok = false;
+	private int gapX, gapY;
 
 	public ExPanel() {
 		setBounds(0, 0, 500, 500);
 		setBackground(Color.orange);
 
-		addMouseListener(this);
 		addMouseMotionListener(this);
+		addMouseListener(this);
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-//		super.mouseClicked(e);
-		if (e.getX() >= this.rect.getX() && e.getX() <= this.rect.getX() + this.rect.getWidth()
-				&& e.getY() >= this.rect.getY() && e.getY() <= this.rect.getY() + this.rect.getHeight()) {
-			this.ok = true;
-		}
+	public void mousePressed(MouseEvent e) {
+		this.gapX = e.getX() - this.rect.getX();
+		this.gapY = e.getY() - this.rect.getY();
 	}
-
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (ok) {
-//		super.mouseDragged(e);
-			System.out.println(e.getX() + " : " + e.getY());
-			this.rect.setX(e.getX());
-			this.rect.setY(e.getY());
+		System.out.println(e.getX() + " : " + e.getY());
+		
+		int x = e.getX();
+		int y = e.getY();
+		
+		int xx = e.getX() - gapX;
+		int yy = e.getY() - gapY;
+		
+		if(x>=this.rect.getX() && x< this.rect.getX() + this.rect.getWidth() && y>=this.rect.getY() && y< this.rect.getY() + this.rect.getHeight()) {
+			this.rect.setX(xx);
+			this.rect.setY(yy);
 		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-//		super.mouseMoved(e);
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-//		super.mouseReleased(e);
-		this.ok = false;
-	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
