@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -54,7 +55,8 @@ class Rect {
 
 public class Board extends MyUtil {
 
-	private Rect rect;
+//	private Rect rect;
+	private ArrayList<Rect> rects = new ArrayList<>();
 	private boolean click = false;
 	private boolean square = false;
 
@@ -99,7 +101,9 @@ public class Board extends MyUtil {
 		g.setColor(Color.white);
 
 		if (this.click) {
-			g.drawRect(this.rect.getX(), this.rect.getY(), this.rect.getWidth(), this.rect.getHeight());
+			for(int i=0; i<this.rects.size(); i++) {
+				g.drawRect(this.rects.get(i).getX(), this.rects.get(i).getY(), this.rects.get(i).getWidth(), this.rects.get(i).getHeight());
+			}
 		}
 		requestFocusInWindow(); // keyListener에 대한 포커스 다시 요청
 		repaint();
@@ -110,7 +114,8 @@ public class Board extends MyUtil {
 		System.out.println("PRESS");
 		this.startX = e.getX();
 		this.startY = e.getY();
-		this.rect = new Rect(this.startX, this.startY, 0, 0);
+		Rect newRect = new Rect(this.startX, this.startY, 0, 0);
+		this.rects.add(newRect);
 		this.click = true;
 	}
 
@@ -139,16 +144,16 @@ public class Board extends MyUtil {
 			this.pointY = e.getY();
 		}
 
-		this.rect.setX(this.pointX);
-		this.rect.setY(this.pointY);
-		this.rect.setWidth(garo);
-		this.rect.setHeight(sero);
+		this.rects.get(this.rects.size()-1).setX(this.pointX);
+		this.rects.get(this.rects.size()-1).setY(this.pointY);
+		this.rects.get(this.rects.size()-1).setWidth(garo);
+		this.rects.get(this.rects.size()-1).setHeight(sero);
 
 		if (this.square) {
 			if (garo > sero) {
-				this.rect.setHeight(garo);
+				this.rects.get(this.rects.size()-1).setHeight(garo);
 			} else {
-				this.rect.setWidth(sero);
+				this.rects.get(this.rects.size()-1).setWidth(sero);
 			}
 		}
 
