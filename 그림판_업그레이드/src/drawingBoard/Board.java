@@ -12,7 +12,10 @@ import javax.swing.JLabel;
 
 class Rect {
 	private int x, y, width, height;
-	private int shape; // 1네모 2세모 3동그라미
+	private int shape; // 1네모 2세모 3동그라미 4직선
+	
+	private ArrayList<Integer> xx = new ArrayList<>();
+	private ArrayList<Integer> yy = new ArrayList<>();
 
 	public Rect(int x, int y, int width, int height, int shape) {
 		this.x = x;
@@ -21,7 +24,17 @@ class Rect {
 		this.height = height;
 		this.shape = shape;
 	}
+	public void drawLine(int x, int y) {
+		this.xx.add(x);
+		this.yy.add(y);
+	}
 
+	public ArrayList<Integer> getXX(){
+		return this.xx;
+	}
+	public ArrayList<Integer> getYY(){
+		return this.yy;
+	}
 	public int getShape() {
 		return this.shape;
 	}
@@ -65,19 +78,18 @@ class Rect {
 
 public class Board extends MyUtil {
 
-//	private Rect rect;
 	private ArrayList<Rect> rects = new ArrayList<>();
-//	private boolean click = false;
-	private boolean square = false;
+	private boolean square = false; // 정*각형
 	private int shape = 1; // 1네모 2세모 3동그라미
 
 	private int startX, startY;
 	private int pointX, pointY;
 
 	public JButton close = new JButton();
+	public JButton reset = new JButton();
 	private JLabel shift = new JLabel();
 
-	private JButton[] shapes = new JButton[3];
+	private JButton[] shapes = new JButton[4];
 
 	public Board() {
 		setLayout(null);
@@ -96,32 +108,46 @@ public class Board extends MyUtil {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton target = (JButton) e.getSource();
-		for (int i = 0; i < this.shapes.length; i++) {
-			if (target == this.shapes[i]) {
-				this.shape = i + 1;
-				System.out.println("모양이 " + (i + 1) + "로 변경됨.");
+		if(target == this.reset) {
+			System.out.println("RESET!!");
+			this.rects = new ArrayList<>();
+			this.shape = 1;
+		} else {
+			for (int i = 0; i < this.shapes.length; i++) {
+				if (target == this.shapes[i]) {
+					this.shape = i + 1;
+					System.out.println("모양이 " + (i + 1) + "로 변경됨.");
+				}
 			}
 		}
 	}
 
 	private void setShiftLabel() {
-		this.shift.setBounds(DrawingBoard.SIZE - 200, DrawingBoard.SIZE - 100, 100, 50);
+		this.shift.setBounds(DrawingBoard.SIZE - 100, DrawingBoard.SIZE - 200, 100, 50);
 		this.shift.setText("SHIFT KEY");
 
 		add(this.shift);
 	}
 
 	private void setButton() {
-		this.close.setBounds(DrawingBoard.SIZE - 100, DrawingBoard.SIZE - 130, 70, 70);
+		// close 버튼
+		this.close.setBounds(DrawingBoard.SIZE - 100, DrawingBoard.SIZE - 100, 70, 50);
 		this.close.setText("CLOSE");
 		this.close.addActionListener(this);
+		
+		// reset 버튼
+		this.reset.setBounds(DrawingBoard.SIZE - 170, DrawingBoard.SIZE - 100, 70, 50);
+		this.reset.setText("RESET");
+		this.reset.addActionListener(this);
 
 		add(this.close);
+		add(this.reset);
 
-		int x = 620;
-		int y = 420;
+		// 그리기 버튼
+		int x = 10;
+		int y = 10;
 
-		String shape[] = { "◼︎", "▲", "●" };
+		String shape[] = { "◼︎", "▲", "●" ,"✎"};
 
 		for (int i = 0; i < this.shapes.length; i++) {
 			this.shapes[i] = new JButton();
@@ -141,15 +167,17 @@ public class Board extends MyUtil {
 		g.setColor(Color.white);
 
 		for (int i = 0; i < this.rects.size(); i++) {
+			int shape = this.rects.get(i).getShape();
 
 			// 네모 그리기
-			if (this.rects.get(i).getShape() == 1) {
+			if ( shape == 1) {
 				g.drawRect(this.rects.get(i).getX(), this.rects.get(i).getY(), this.rects.get(i).getWidth(),
 						this.rects.get(i).getHeight());
 			}
 
 			// 세모 그리기
-			else if (this.rects.get(i).getShape() == 2) {
+			else if (shape == 2) {
+				
 				// 삼각형 그리기
 				// Graphics.drawPolygon(int[], int[], int)
 				// ㄴ first int[] is the set of x values,
@@ -177,10 +205,27 @@ public class Board extends MyUtil {
 				g.drawPolygon(x, y, 3);
 
 			}
+			
 			// 동그라미 그리기
-			else if (this.rects.get(i).getShape() == 3) {
+			else if (shape == 3) {
 				g.drawRoundRect(this.rects.get(i).getX(), this.rects.get(i).getY(), this.rects.get(i).getWidth(),
 						this.rects.get(i).getHeight(), this.rects.get(i).getWidth(), this.rects.get(i).getHeight());
+			}
+			
+			// 선 그리기
+			else if(shape == 4) {
+				ArrayList<Integer> xx = this.rects.get(i).getXX();
+				ArrayList<Integer> yy = this.rects.get(i).getYY();
+				
+				int[] x = new int[xx.size()];
+				int[] y = new int[yy.size()];
+				
+				for(int j=0; j<xx.size(); j++) {
+					x[j] = xx.get(j);
+					y[j] = yy.get(j);
+				}
+				
+				g.drawPolyline(x, y, x.length);
 			}
 		}
 		requestFocusInWindow(); // keyListener에 대한 포커스 다시 요청
@@ -199,22 +244,17 @@ public class Board extends MyUtil {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		for (int i = 0; i < this.rects.size(); i++) {
-			if (this.rects.get(i).getShape() == 2) {
-				System.out.println("x: " + this.rects.get(i).getX() + ","
-						+ (this.rects.get(i).getX() + this.rects.get(i).getWidth()) + ","
-						+ (this.rects.get(i).getX() - this.rects.get(i).getWidth()));
-				System.out.println("y: " + this.rects.get(i).getY() + ","
-						+ (this.rects.get(i).getY() + this.rects.get(i).getHeight()) + ","
-						+ (this.rects.get(i).getY() - this.rects.get(i).getHeight()));
-			}
-		}
 		System.out.println("DRAG");
 
-		int lastShapeIdx = this.rects.size() - 1;
-
+		int lastShapeIdx = this.rects.size()-1;
+		int shape = this.rects.get(lastShapeIdx).getShape();
+		
+		// 직선일때 예외 처리
+		if (shape == 4) {
+			this.rects.get(lastShapeIdx).drawLine(e.getX(), e.getY());
+		}
 		// 삼각형일때 예외 처리
-		if (this.rects.get(lastShapeIdx).getShape() == 2) {
+		else if (shape == 2) {
 			int width = this.startX - e.getX();
 			int height = this.startY - e.getY();
 
@@ -255,9 +295,9 @@ public class Board extends MyUtil {
 
 			if (this.square) {
 				if (garo > sero) {
-					this.rects.get(this.rects.size() - 1).setHeight(garo);
+					this.rects.get(lastShapeIdx).setHeight(garo);
 				} else {
-					this.rects.get(this.rects.size() - 1).setWidth(sero);
+					this.rects.get(lastShapeIdx).setWidth(sero);
 				}
 			}
 
@@ -284,10 +324,6 @@ public class Board extends MyUtil {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		this.square = false;
-		delShiftLabel();
-	}
-
-	private void delShiftLabel() {
 		this.shift.setText("");
 	}
 }
