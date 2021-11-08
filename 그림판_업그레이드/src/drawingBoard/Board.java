@@ -37,7 +37,7 @@ public class Board extends MyUtil {
 	private JButton colorButton[] = new JButton[colors.length];
 
 	public Board() {
-		setLayout(null);
+		setLayout(null);	
 		setBounds(0, 0, DrawingBoard.SIZE, DrawingBoard.SIZE);
 //		setBackground(Color.white); 
 
