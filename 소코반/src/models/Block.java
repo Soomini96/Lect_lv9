@@ -1,10 +1,15 @@
 package models;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import controller.Board;
+import controller.ResourceLoader;
 
 public class Block {
 	private final int GROUND = 1;
@@ -38,8 +43,26 @@ public class Block {
 		this.height = height;
 		this.state = state;
 		
+		// 원래
+//		this.fileName = String.format("image/tile%d.png", state);
+//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		
+		// new File로 일단 해보기 -> 그 후 리소스 리더..
 		this.fileName = String.format("image/tile%d.png", state);
-		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+//		this.fileName = String.format("res/image/tile%d.png", state);
+//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+//		this.image = new ImageIcon(new File(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+
+		
+		//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		try {
+//			BufferedImage gg = ImageIO.read(new File(fileName));
+			BufferedImage gg = ImageIO.read(ResourceLoader.load(fileName));
+			this.image = new ImageIcon(gg.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getX() {
@@ -94,8 +117,24 @@ public class Block {
 		if(state == this.BOX && this.goal) {
 			this.state = this.OKBOX;
 		}
-		this.fileName = String.format("image/tile%d.png", this.state);
-		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+//		this.fileName = String.format("image/tile%d.png", this.state);
+//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		
+		// new File로 일단 해보기 -> 그 후 리소스 리더..
+		this.fileName = String.format("image/tile%d.png", state);
+//		this.fileName = String.format("res/image/tile%d.png", state);
+//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+//		this.image = new ImageIcon(new File(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+
+		//		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		try {
+//			BufferedImage gg = ImageIO.read(new File(fileName));
+			BufferedImage gg = ImageIO.read(ResourceLoader.load(fileName));
+			this.image = new ImageIcon(gg.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
