@@ -48,7 +48,7 @@ public class Block {
 //		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 		
 		// new File로 일단 해보기 -> 그 후 리소스 리더..
-		this.fileName = String.format("image/tile%d.png", state);
+		this.fileName = String.format("image/tile%d.png", this.state);
 //		this.fileName = String.format("res/image/tile%d.png", state);
 //		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 //		this.image = new ImageIcon(new File(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
@@ -121,7 +121,7 @@ public class Block {
 //		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 		
 		// new File로 일단 해보기 -> 그 후 리소스 리더..
-		this.fileName = String.format("image/tile%d.png", state);
+		this.fileName = String.format("image/tile%d.png", this.state);
 //		this.fileName = String.format("res/image/tile%d.png", state);
 //		this.image = new ImageIcon(new ImageIcon(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
 //		this.image = new ImageIcon(new File(this.fileName).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
